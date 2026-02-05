@@ -1,0 +1,941 @@
+:root {
+    /* Light Theme Variables */
+    --bg-color: #f8f9fa;
+    /* Light gray background */
+    --text-color: #212529;
+    /* Dark text */
+    --card-bg: #ffffff;
+    /* White card background */
+    --accent-color: #0d6efd;
+    /* Bootstrap Primary Blue */
+    --nav-bg: #ffffff;
+    --hero-overlay: rgba(255, 255, 255, 0.8);
+    --glow-shadow: none;
+    --nav-links-color: #cbcbcb;
+}
+
+[data-theme="dark"] {
+    /* Dark Theme Variables - Glowing Blue */
+    --bg-color: #050a14;
+    /* Very dark blue/black */
+    --text-color: #e0f7fa;
+    /* Light cyan text */
+    --card-bg: #0a1120;
+    /* Darker blue card background */
+    --accent-color: #009dff;
+    /* Bright Cyan/Blue */
+    --nav-bg: #050a14;
+    --hero-overlay: rgba(5, 10, 20, 0.8);
+
+    /* The "glowing" effect */
+    --glow-shadow: 0 0 15px rgba(0, 229, 255, 0.3), 0 0 30px rgba(0, 229, 255, 0.1);
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+    /* Prevent horizontal scroll */
+}
+
+section {
+    scroll-margin-top: 80px;
+}
+
+/* Main Content Transition Wrapper */
+#main-content {
+    transition: opacity 0.3s ease;
+    opacity: 1;
+}
+
+body.fade-out #main-content {
+    opacity: 0;
+}
+
+#main-content.fade-out {
+    opacity: 0;
+}
+
+
+/* Navbar */
+.navbar {
+    background-color: var(--nav-bg);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+
+/* Navbar Text Colors */
+.navbar-brand,
+.nav-link {
+    color: var(--text-color) !important;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--accent-color) !important;
+}
+
+/* Modal Close Button Dark Mode Fix */
+[data-theme="dark"] .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+[data-theme="dark"] .navbar {
+    border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+    box-shadow: 0 2px 10px rgba(0, 229, 255, 0.1);
+}
+
+/* Theme Toggle Button */
+/* Theme Toggle Switch */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.theme-switch {
+    display: inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+    margin-bottom: 0;
+}
+
+.theme-switch input {
+    display: none;
+}
+
+.slider {
+    background-color: #7ec7ff;
+    /* Sky Blue */
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    background-color: #fff;
+    bottom: 4px;
+    content: "";
+    height: 26px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 26px;
+    z-index: 1;
+    border-radius: 50%;
+}
+
+/* Dark Mode State */
+input:checked+.slider {
+    background-color: #2c3e50;
+    /* Dark Navy */
+}
+
+input:checked+.slider:before {
+    transform: translateX(26px);
+}
+
+/* Icons within the slider */
+/* Icons within the slider */
+.sun-icon,
+.moon-icon {
+    position: absolute;
+    top: 50%;
+    left: 9px;
+    transform: translateY(-50%);
+    font-size: 18px;
+    transition: all 0.4s ease;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.sun-icon {
+    color: #ffcc00;
+    opacity: 1;
+    transform: translateY(-50%) rotate(0);
+}
+
+.moon-icon {
+    color: #3370ff;
+    opacity: 0;
+    transform: translateY(-50%) rotate(-90deg);
+}
+
+/* Dark Mode State - Move and Fade Icons */
+input:checked+.slider .sun-icon {
+    opacity: 0;
+    transform: translateY(-50%) translateX(26px) rotate(90deg);
+}
+
+input:checked+.slider .moon-icon {
+    opacity: 1;
+    transform: translateY(-50%) translateX(26px) rotate(0);
+}
+
+/* Glow effect in Dark Mode */
+[data-theme="dark"] input:checked+.slider {
+    box-shadow: 0 0 10px var(--accent-color);
+}
+
+/* Horizontal Scroll Styling */
+.scrolling-wrapper {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    /* Hide native scrollbar (Firefox) */
+    -ms-overflow-style: none;
+    /* Hide native scrollbar (IE/Edge) */
+    scroll-snap-type: x mandatory;
+    overflow-y: hidden !important;
+    overflow-x: auto !important;
+    padding-bottom: 20px;
+    /* Ensure space for shadow/hover effects without clipping */
+}
+
+/* Hide scrollbar for Chrome/Safari/Opera */
+.scrolling-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.scrolling-wrapper>* {
+    scroll-snap-align: center;
+}
+
+/* Custom Centered Slider/Progress Bar */
+.scroll-progress-track {
+    width: 200px;
+    height: 4px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    margin: 20px auto 0;
+    /* Center horizontally */
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .scroll-progress-track {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.scroll-progress-bar {
+    height: 100%;
+    width: 20%;
+    /* Will be updated via JS */
+    background-color: var(--accent-color);
+    border-radius: 2px;
+    position: absolute;
+    left: 0;
+    transition: left 0.1s linear;
+    /* Smooth movement */
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .hero-section::before {
+    /* Subtle background glow for dark mode */
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+    z-index: -1;
+}
+
+.hero-img {
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    max-width: 100%;
+    height: auto;
+}
+
+[data-theme="dark"] .hero-img {
+    box-shadow: var(--glow-shadow);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+}
+
+/* Mobile Menu Modal */
+.mobile-menu-modal .modal-content {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--accent-color);
+    box-shadow: var(--glow-shadow);
+}
+
+.profile-avatar {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--accent-color);
+    padding: 4px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .profile-avatar {
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+}
+
+.social-links a {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    /* Darker blue for light mode hover */
+    filter: brightness(1.1);
+    /* Brighter for dark mode hover */
+}
+
+[data-theme="dark"] .btn-primary {
+    color: #000;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+}
+
+/* Utility to highlight text */
+.text-highlight {
+    color: var(--accent-color);
+}
+
+/* =========================================
+   Refined Hero Image (Blended Look)
+   ========================================= */
+.hero-img-container {
+    position: relative;
+    display: inline-block;
+}
+
+.hero-img-blended {
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    border-radius: 0;
+    box-shadow: none !important;
+    border: none !important;
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.2));
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+[data-theme="dark"] .hero-img-blended {
+    filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.4));
+}
+
+.hero-img-blended:hover {
+    transform: scale(1.02);
+}
+
+/* =========================================
+   Unique Skills Section (Glass Cards)
+   ========================================= */
+.skill-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Bouncy transition */
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .skill-card {
+    background: rgba(10, 17, 32, 0.6);
+    /* Semi-transparent */
+    border: 1px solid rgba(0, 229, 255, 0.1);
+    backdrop-filter: blur(10px);
+    /* Glass effect */
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent-color);
+}
+
+[data-theme="dark"] .skill-card:hover {
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+}
+
+.skill-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: var(--accent-color);
+}
+
+/* =========================================
+   Journey Timeline (Education & Milestones)
+   ========================================= */
+.timeline {
+    position: relative;
+    padding-left: 30px;
+    border-left: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .timeline {
+    border-left: 2px solid rgba(0, 229, 255, 0.2);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -37px;
+    /* Align with line */
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--bg-color);
+    border: 3px solid var(--accent-color);
+    box-shadow: 0 0 0 4px var(--bg-color);
+    /* fake spacing */
+    transition: background-color 0.3s ease;
+}
+
+/* Glow effect for markers in dark mode */
+[data-theme="dark"] .timeline-marker {
+    box-shadow: 0 0 10px var(--accent-color), 0 0 0 4px var(--bg-color);
+}
+
+.timeline-content {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+[data-theme="dark"] .timeline-content {
+    background: rgba(10, 17, 32, 0.5);
+    border: 1px solid rgba(0, 229, 255, 0.1);
+}
+
+.timeline-item:hover .timeline-content {
+    transform: translateX(5px);
+}
+
+.timeline-date {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    margin-bottom: 5px;
+    display: block;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* =========================================
+   Social Hub Section
+   ========================================= */
+.social-hub-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    /* Remove underline from link wrapper */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.social-hub-card h6 {
+    color: white;
+}
+
+[data-theme="dark"] .social-hub-card {
+    background: rgba(10, 17, 32, 0.6);
+    border: 1px solid rgba(0, 229, 255, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+.social-hub-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent-color);
+}
+
+[data-theme="dark"] .social-hub-card:hover {
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+}
+
+.social-hu.navbar-brand {
+    font-family: 'Comfortaa', cursive;
+    font-size: 1.5rem;
+    color: var(--text-color);
+}
+
+.brand-short {
+    display: none;
+    /* Hidden by default on large screens */
+}
+
+.brand-full {
+    display: inline-block;
+}
+
+
+
+/* Enhanced Carousel Controls for Project Cards */
+.card .carousel-control-prev,
+.card .carousel-control-next {
+    width: 15%;
+    opacity: 0;
+    /* Hidden until hover */
+    transition: opacity 0.3s ease;
+}
+
+.card:hover .carousel-control-prev,
+.card:hover .carousel-control-next {
+    opacity: 1;
+}
+
+.card .carousel-control-prev-icon,
+.card .carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Dark background for contrast */
+    border-radius: 50%;
+    padding: 10px;
+    background-size: 50% 50%;
+    /* Make arrow icon smaller inside circle */
+}
+
+.card .carousel-indicators {
+    margin-bottom: 0.5rem;
+}
+
+.card .carousel-indicators button {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.card .carousel-indicators .active {
+    background-color: var(--accent-color);
+}
+
+.social-hub-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.social-hub-card:hover .social-hub-icon {
+    color: var(--accent-color);
+}
+
+/* SVG Icons (Masked for Color Control) */
+.svg-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: var(--text-color);
+    -webkit-mask-image: var(--mask-url);
+    mask-image: var(--mask-url);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    transition: background-color 0.3s ease;
+}
+
+.social-hub-card:hover .svg-icon {
+    background-color: var(--accent-color);
+}
+
+/* Specific Brand Colors using generated classes */
+.social-hub-card:hover .icon-upwork,
+.social-hub-card:hover .svg-icon.icon-upwork {
+    color: #6fda44 !important;
+    /* Font icon color */
+    background-color: #6fda44 !important;
+    /* SVG mask color */
+}
+
+.social-hub-card:hover .fa-linkedin {
+    color: #0077b5;
+}
+
+.social-hub-card:hover .fa-github {
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .social-hub-card:hover .fa-github {
+    color: #fff;
+}
+
+.social-hub-card:hover .fa-stack-overflow {
+    color: #f48024;
+}
+
+.social-hub-card:hover .fa-youtube {
+    color: #ff0000;
+}
+
+.social-hub-card:hover .fa-facebook {
+    color: #1877f2;
+}
+
+.social-hub-card:hover .fa-briefcase {
+    color: #6fda44;
+}
+
+/* Upwork-ish green */
+
+
+/* =========================================
+   Responsive Fixes
+   ========================================= */
+/* =========================================
+   Responsive Fixes (Nav & Brand)
+   ========================================= */
+@media (max-width: 350px) {
+    .brand-full {
+        display: none !important;
+    }
+
+    .brand-short {
+        display: inline-block !important;
+        font-family: ubuntu;
+        /* Unique style for MA. */
+        font-size: 1.5rem;
+        background: linear-gradient(45deg, var(--accent-color), #8a2be2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 900;
+        letter-spacing: -1px;
+    }
+}
+
+@media (max-width: 380px) {
+
+
+    /* Prevent navbar wrapping on very small screens */
+    .navbar>.container {
+        flex-wrap: nowrap !important;
+    }
+
+    .hero-section {
+        padding-top: 120px;
+        /* More space for fixed nav */
+    }
+
+    /* Brand Name Switcher */
+
+}
+
+/* =========================================
+   Scroll Animations
+   ========================================= */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* New Animation Variations */
+.animate-fade-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-fade-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.animate-fade-right {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-fade-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.animate-zoom {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-zoom.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Staggered Delays */
+.delay-100 {
+    transition-delay: 0.1s;
+}
+
+.delay-200 {
+    transition-delay: 0.2s;
+}
+
+.delay-300 {
+    transition-delay: 0.3s;
+}
+
+.delay-400 {
+    transition-delay: 0.4s;
+}
+
+.delay-500 {
+    transition-delay: 0.5s;
+}
+
+/* =========================================
+   Theme & Color Fixes
+   ========================================= */
+/* Alternating section background */
+.section-alternate {
+    background-color: #f1f3f5;
+    /* Light gray for light mode */
+}
+
+[data-theme="dark"] .section-alternate {
+    background-color: #0d1626;
+    /* Slightly lighter dark blue for dark mode */
+}
+
+/* Fix Mobile Menu Button Color */
+.navbar .btn .fa-bars {
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+/* Fix Text Muted in Dark Mode */
+[data-theme="dark"] .text-muted {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* =========================================
+   Modern Footer Styling
+   ========================================= */
+.footer-modern {
+    background-color: #f8f9fa;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding-top: 80px;
+    padding-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .footer-modern {
+    background-color: #050a14;
+    border-top: 1px solid rgba(0, 229, 255, 0.1);
+}
+
+.footer-brand {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--text-color);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+    transition: color 0.3s ease;
+}
+
+.footer-brand:hover {
+    color: var(--accent-color);
+}
+
+.footer-text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    max-width: 350px;
+    margin: 0 auto;
+    /* Center on mobile if needed */
+}
+
+@media (min-width: 992px) {
+    .footer-text {
+        margin: 0;
+    }
+}
+
+.footer-heading {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    position: relative;
+    display: inline-block;
+}
+
+/* Optional underline effect for headings */
+.footer-heading::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 3px;
+    background-color: var(--accent-color);
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+@media (min-width: 768px) {
+    .footer-heading::after {
+        /* Align left on larger screens if desired, but centered looks good for columns */
+        /* If we want left aligned columns: */
+        /* left: 0; transform: none; */
+    }
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+
+
+.footer-social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--text-color);
+    margin-right: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .footer-social-links a {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.footer-social-links a:hover {
+    background-color: var(--accent-color);
+    color: #fff;
+    /* White icon on hover */
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+}
+
+.footer-cta {
+    border-radius: 50px;
+    font-weight: 600;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.footer-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(13, 110, 253, 0.25);
+}
+
+.footer-divider {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    opacity: 1;
+}
+
+[data-theme="dark"] .footer-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.back-to-top {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background-color: var(--card-bg);
+    /* Use card bg */
+    color: var(--text-color);
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .back-to-top {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.back-to-top:hover {
+    background-color: var(--accent-color);
+    color: #fff;
+    transform: translateY(-5px);
+}
+
+/* Fix text muted in footer */
+[data-theme="dark"] .footer-modern .text-secondary {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Simple Contact Links (Restored) */
+.contact-link {
+    color: var(--text-color);
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.contact-link:hover {
+    color: var(--accent-color);
+    opacity: 1;
+    transform: translateY(-3px);
+}
