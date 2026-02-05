@@ -157,10 +157,10 @@ const projectsData = [
         link: 'https://www.blazas.com',
         // Support for multiple images
         images: [
-            'img/projects/project-1-4.webp',
-            'img/projects/project-1-2.webp',
-            'img/projects/project-1-3.webp',
-            'img/projects/project-1-1.webp'
+            'img/Projects/project-1-4.webp',
+            'img/Projects/project-1-2.webp',
+            'img/Projects/project-1-3.webp',
+            'img/Projects/project-1-1.webp'
         ]
     },
     {
@@ -168,13 +168,13 @@ const projectsData = [
         description: 'A website that tests your internet speed with the help of network threads',
         link: 'https://speed.blazas.com',
         // Fallback for single image if needed, or just use 1-item array
-        images: ['img/projects/project-2-1.webp']
+        images: ['img/Projects/project-2-1.webp']
     },
     {
         title: 'Ali Electro Traders Website',
         description: 'Developed a website for Ali Electro Traders',
         link: 'https://ali-electro-traders.great-site.net',
-        images: ['img/projects/project-3-1.webp']
+        images: ['img/Projects/project-3-1.webp']
     }
 ];
 
@@ -482,5 +482,6 @@ setTimeout(() => {
         observer.observe(el);
     });
 }, 100);
+
 
 
