@@ -159,10 +159,10 @@ const projectsData = [
         link: 'https://www.blazas.com',
         // Support for multiple images
         images: [
-            'img/Projects/project-1-4.webp',
+            'img/Projects/project-1-1.webp',
             'img/Projects/project-1-2.webp',
             'img/Projects/project-1-3.webp',
-            'img/Projects/project-1-1.webp'
+            'img/Projects/project-1-4.webp'
         ]
     },
     {
