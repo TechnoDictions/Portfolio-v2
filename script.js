@@ -155,7 +155,7 @@ const educationData = [
 const projectsData = [
     {
         title: 'Blazas Website',
-        description: 'A Article Publishing and Blogging Website with a unique User Interface and fully dynamically loaded content',
+        description: 'Google Adsense Approved Article Publishing and Blogging Website with a unique User Interface and fully Dynamic With Admin Highly secure admin panel via Google.',
         link: 'https://www.blazas.com',
         // Support for multiple images
         images: [
