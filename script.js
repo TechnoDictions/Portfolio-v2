@@ -116,7 +116,9 @@ const skillsData = [
     { name: 'HTML5', icon: 'fab fa-html5' },
     { name: 'CSS3', icon: 'fab fa-css3-alt' },
     { name: 'JavaScript', icon: 'fab fa-js' },
+    { name: 'Next.js', icon: 'fab fa-nextjs' },
     { name: 'Bootstrap', icon: 'fab fa-bootstrap' },
+    
     // Example of adding a new skill:
     // { name: 'React', icon: 'fab fa-react' },
 ];
